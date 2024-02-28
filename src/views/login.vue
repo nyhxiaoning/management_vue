@@ -1,3 +1,4 @@
+
 <template>
   <div class="flex items-center justify-center h-screen bg-gray-100">
     <div class="flex mx-auto bg-white rounded py-10">
@@ -54,9 +55,14 @@ const loginRules = reactive({
 });
 //登录
 const handleLogin = async () => {
-  const { data } = await login(formLogin);
-  Storage.set<string>("token", data);
-  router.push("/")
+  const result= await login(formLogin);
+  Storage.set<string>("token", result.data);
+  debugger
+  if(result.code ==200){
+    alert(result.describe)
+    router.push("/")
+  }
+  
   if (isRemember.value) {
     rememberPassword(formLogin)
     return

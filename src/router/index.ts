@@ -1,8 +1,9 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
+
+import { filterBreadCrumb } from "@/utils/filterBreadCrumb";
+import { filterRoute } from "@/utils/filterRoute";
 import home from "@/store";
 import { nextTick } from "vue";
-import { filterRoute } from "@/utils/filterRoute";
-import { filterBreadCrumb } from "@/utils/filterBreadCrumb";
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -32,13 +33,16 @@ const router = createRouter({
     },
   ],
 });
-const writeLists = ["login"];
+const writeLists = ["login","首页",""];
 router.beforeEach(async (to, from, next) => {
+  // 通过路由name来判断当前的名称白名单:先进入系统。
   if (writeLists.includes(to.name as string)) {
     next();
     return;
   }
   await nextTick();
+
+  // TODO:动态路由快速判断
   const homeStore = home();
 
   if (homeStore.menuList.length) {
