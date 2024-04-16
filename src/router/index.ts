@@ -33,7 +33,7 @@ const router = createRouter({
     },
   ],
 });
-const writeLists = ["login","首页",""];
+const writeLists = ["login", "首页", ""];
 router.beforeEach(async (to, from, next) => {
   // 通过路由name来判断当前的名称白名单:先进入系统。
   if (writeLists.includes(to.name as string)) {
@@ -42,8 +42,9 @@ router.beforeEach(async (to, from, next) => {
   }
   await nextTick();
 
-  // TODO:动态路由快速判断
+  // note:动态路由快速判断
   const homeStore = home();
+  debugger
 
   if (homeStore.menuList.length) {
     homeStore.$patch({
