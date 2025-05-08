@@ -6,9 +6,10 @@
     </div>
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item v-for="item in homeStore.breadcrumbs" :to="item.path ? { path: item.path } : ''">
+      <login/>
+       <el-breadcrumb-item v-for="item in homeStore.breadcrumbs" :to="item.path ? { path: item.path } : ''">
         {{ item.name }}
-      </el-breadcrumb-item>
+        </el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 
@@ -36,6 +37,7 @@ import home from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { watch, ref } from "vue";
 import tagsview from "@/components/tagsview/index.vue";
+import login from "@/views/login.vue"
 const isTagView = ref(false);
 const route = useRoute();
 const router = useRouter();
