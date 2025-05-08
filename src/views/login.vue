@@ -27,6 +27,10 @@
           <div class="text-[#999] text-[14px]">其它方式登录</div>
           <div class="w-[100px] border-t-2 border-gray"></div>
         </div>
+        <div>
+          <p @click="getUserFn">test测试alova的请求：getUser</p>
+          <p @click="deleteUserFn">deleteUserFn</p>
+        </div>
         <div class="flex justify-around mt-4">
           <div class="bg-[#f5f5f5] rounded-full p-2">
             <wxIcon />
@@ -44,7 +48,9 @@ import wxIcon from "@/assets/svg/wx_icon.vue";
 import qqIcon from "@/assets/svg/qq_icon.vue";
 import { reactive, ref, onMounted } from "vue";
 import { login } from "@/http/login";
+import { getUser, deleteUser } from "@/http/alovahome"
 import { LoginVo } from "@/http/login/types/login.vo";
+
 import { Storage } from "@/utils/storage";
 import { useRouter } from "vue-router";
 const router = useRouter()
@@ -85,6 +91,17 @@ const getRememberAccount = () => {
   formLogin.username = userAccount.username
   formLogin.password = userAccount.password
   isRemember.value = true
+}
+
+const getUserFn= async ()=>{
+  console.log('11111')
+ const test =  await getUser(11)
+ console.log(test);
+}
+
+const deleteUserFn = async ()=>{
+  console.log('333')
+  const test = await deleteUser(124)
 }
 onMounted(() => {
   getRememberAccount()
