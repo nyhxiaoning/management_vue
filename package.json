@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "gen:api": "npx openapi-typescript http://localhost:3031/api-json --output src/api-types.ts",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
