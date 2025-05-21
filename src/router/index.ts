@@ -20,6 +20,13 @@ const router = createRouter({
       name: "首页",
       component: () =>
         import(/* webpackChunkName: "Layout" */ "../layout/index.vue"),
+      children: [
+        {
+          path: "upload",
+          name: "upload",
+          component: () => import("../views/upload/index.vue"),
+        }
+      ]
     },
     {
       path: "/:pathMatch(.*)*",
@@ -30,10 +37,10 @@ const router = createRouter({
       name: "login",
       component: () =>
         import(/* webpackChunkName: "login" */ "../views/login.vue"),
-    },
+    }
   ],
 });
-const writeLists = ["login", "首页", ""];
+const writeLists = ["login", "首页", "upload"];
 router.beforeEach(async (to, from, next) => {
   // 通过路由name来判断当前的名称白名单:先进入系统。
   if (writeLists.includes(to.name as string)) {
