@@ -6,24 +6,39 @@
     </div>
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <login/>
-       <el-breadcrumb-item v-for="item in homeStore.breadcrumbs" :to="item.path ? { path: item.path } : ''">
+      <el-breadcrumb-item
+        v-for="item in homeStore.breadcrumbs"
+        :to="item.path ? { path: item.path } : ''"
+      >
         {{ item.name }}
-        </el-breadcrumb-item>
+      </el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 
   <div class="shadow-sm py-1">
     <el-scrollbar>
       <div class="flex">
-        <el-tag @contextmenu.prevent="openMenu($event, item.path)" v-for="(item, index) in homeStore.navTags"
-          @click="handelTo(item)" :key="item.name" class="ml-2 cursor-pointer flex-shrink-0"
-          :effect="currentPath === item.path ? 'dark' : ''" type="primary" :closable="item.path != '/'"
-          @close="handleClose(index, item.path)">
+        <el-tag
+          @contextmenu.prevent="openMenu($event, item.path)"
+          v-for="(item, index) in homeStore.navTags"
+          @click="handelTo(item)"
+          :key="item.name"
+          class="ml-2 cursor-pointer flex-shrink-0"
+          :effect="currentPath === item.path ? 'dark' : ''"
+          type="primary"
+          :closable="item.path != '/'"
+          @close="handleClose(index, item.path)"
+        >
           {{ item.name }}
           <teleport to="body">
-            <tagsview v-if="isTagView" @closeTagView="isTagView = false" :tag="item" class="w-[100px] fixed"
-              :style="tagViewStyle" @closeCur="handleClose(index, item.path)" />
+            <tagsview
+              v-if="isTagView"
+              @closeTagView="isTagView = false"
+              :tag="item"
+              class="w-[100px] fixed"
+              :style="tagViewStyle"
+              @closeCur="handleClose(index, item.path)"
+            />
           </teleport>
         </el-tag>
       </div>
@@ -37,7 +52,7 @@ import home from "@/store";
 import { useRoute, useRouter } from "vue-router";
 import { watch, ref } from "vue";
 import tagsview from "@/components/tagsview/index.vue";
-import login from "@/views/login.vue"
+import login from "@/views/login.vue";
 const isTagView = ref(false);
 const route = useRoute();
 const router = useRouter();
@@ -68,7 +83,6 @@ const handleClose = (index: number, path: string) => {
     length && router.push(homeStore.navTags[length - 1].path);
   }
 };
-
 
 const listener = () => {
   isTagView.value = false;
